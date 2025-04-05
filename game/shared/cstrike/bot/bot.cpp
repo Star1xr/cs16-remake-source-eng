@@ -106,4 +106,34 @@ const Vector &ActiveGrenade::GetPosition( void ) const
 
 	return m_entity->GetAbsOrigin();
 }
+// Botun kalkan alıp almayacağını kontrol eder
+bool CBot::ShouldEquipShield()
+{
+    // Kalkan kullanımını botların takımına göre kontrol et
+    if (GetTeam() == TEAM_CT && sm_bot_use_shield_enable_ctbot.GetBool())
+    {
+        return true;  // CT botları kalkan alabilir
+    }
+    else if (GetTeam() == TEAM_TERRORIST && sm_bot_use_shield_enable_tbot.GetBool())
+    {
+        return false;  // TERRORIST botları kalkan kullanmaz
+    }
 
+    return false;  // Diğer durumlarda kalkan kullanılmaz
+}
+
+// Botlara kalkan silahı ekler
+void CBot::EquipShield()
+{
+    if (!sm_bot_use_shield_enable.GetBool())
+        return;
+
+    const char* shieldWeapon = sm_bot_use_shield_weapon.GetString();
+    if (Q_strlen(shieldWeapon) == 0)
+        return;
+
+    // Botun envanterine kalkanı ekler
+    CBaseEntity* pShield = CreateEntityByName(shieldWeapon);
+    DispatchSpawn(pShield);
+    Weapon_Equip((CBaseCombatWeapon*)pShield);  // Kalkanı botun eline verir
+}
