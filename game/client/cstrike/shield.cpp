@@ -1,5 +1,6 @@
 #include "cbase.h"
 #include "tier1/convar.h"
+#include "bot.cpp"
 
 // ConVar'lar
 ConVar sm_bot_use_shield_enable("sm_bot_use_shield_enable", "1", FCVAR_PLUGIN, "Enable the plugin? (1: enabled; 0: disabled)");
@@ -49,4 +50,42 @@ CON_COMMAND(sm_distribute_shields, "Distribute shields randomly to players")
 void CShieldPlugin::OnRoundStart()
 {
     DistributeShieldsRandomly();  // Oyun başladığında rastgele kalkan dağıt
+}
+void CShieldPlugin::ApplyShields()
+{
+    if (!sm_bot_use_shield_enable.GetBool())
+        return;
+
+    const char* shieldWeapon = sm_bot_use_shield_weapon.GetString();
+    if (Q_strlen(shieldWeapon) == 0)
+        return;
+
+    // Botlar için kalkan ekleme
+    for (int i = 1; i <= gpGlobals->maxClients; ++i)
+    {
+        CBasePlayer* pPlayer = UTIL_PlayerByIndex(i);
+        if (!pPlayer || pPlayer->IsFakeClient())
+            continue;
+
+        int team = pPlayer->GetTeamNumber();
+
+        // Teröristler için kalkan kullanımı
+        if (team == TEAM_TERRORIST && sm_bot_use_shield_enable_tbot.GetBool())
+        {
+            CBot* pBot = dynamic_cast<CBot*>(pPlayer);
+            if (pBot && pBot->ShouldEquipShield())
+            {
+                pBot->EquipShield();
+            }
+        }
+        // CT'ler için kalkan kullanımı
+        else if (team == TEAM_CT && sm_bot_use_shield_enable_ctbot.GetBool())
+        {
+            CBot* pBot = dynamic_cast<CBot*>(pPlayer);
+            if (pBot && pBot->ShouldEquipShield())
+            {
+                pBot->EquipShield();
+            }
+        }
+    }
 }
