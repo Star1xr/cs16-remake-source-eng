@@ -109,6 +109,7 @@ $Project "Client (CStrike)"
 			$File	"$SRCDIR\game\shared\cstrike\bot\shared_util.cpp"
 			$File	"$SRCDIR\game\shared\cstrike\bot\shared_util.h"
 			$File	"cstrike\vgui_rootpanel_cs.cpp"
+                        $File   "cstrike\shield.cpp"
 			
 			$Folder "HUD Elements"
 			{
