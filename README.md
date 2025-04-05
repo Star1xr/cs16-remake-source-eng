@@ -1,9 +1,9 @@
 # Cs 1.6 Source Engine remake!
 # current tasks
-- [] CS 1.6 Shield buyable on buymenu.
-- [] CS 1.6 ViPs on teammenu.
-- [] CS 1.6 Weapons.(You can currently only find models in the game files, soon weapons from cs 1.6 fully functional will work.)
-- [] CS 1.6 Menu(Alternative, Maybe.)
+- [ ] CS 1.6 Shield buyable on buymenu.
+- [ ] CS 1.6 ViPs on teammenu.
+- [ ] CS 1.6 Weapons.(You can currently only find models in the game files, soon weapons from cs 1.6 fully functional will work.)
+- [ ] CS 1.6 Menu(Alternative, Maybe.)
 
 # Source Engine
 [![GitHub Actions Status](https://github.com/nillerusr/source-engine/actions/workflows/build.yml/badge.svg)](https://github.com/nillerusr/source-engine/actions/workflows/build.yml) [![GitHub Actions Status](https://github.com/nillerusr/source-engine/actions/workflows/tests.yml/badge.svg)](https://github.com/nillerusr/source-engine/actions/workflows/tests.yml)
